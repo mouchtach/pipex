@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:22:10 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/11 00:44:04 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/11 23:03:13 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ typedef struct t_pipe
     int out;
     int fd[2];
     char **cmd;
-    char *path;
     char **argv;
     char **env;
-    int hrd;
     int idex;
+    int tmp_in;
     
 }t_pipe ;
 

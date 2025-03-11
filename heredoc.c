@@ -6,10 +6,9 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:28:28 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/11 00:44:25 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/11 22:54:37 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "pipex.h"
 
@@ -19,7 +18,7 @@ int heredoc(char *dlm)
     char *line;
     int herdoc;
 
-    herdoc = open("heredoc", O_CREAT | O_RDWR | O_APPEND, 0777);
+    herdoc = open("heredoc", O_CREAT | O_RDWR | O_TRUNC , 0777);
     dlm = ft_strjoin(dlm, "\n");
     while (1)
     {
