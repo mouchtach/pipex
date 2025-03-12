@@ -1,4 +1,4 @@
-SOURCES = ft_split.c libft.c pipex.c heredoc.c get_next_line.c
+SOURCES = ft_split.c libft.c pipex.c heredoc.c get_next_line.c free_error.c pipex_utils.c
 OBJECTS = $(SOURCES:.c=.o)
 AR = ar rcs
 CC = cc

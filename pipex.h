@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:22:10 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/11 23:03:13 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/12 19:53:10 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct t_pipe
     char **cmd;
     char **argv;
     char **env;
+    char **path;
+    char *exec;
     int idex;
     int tmp_in;
     
@@ -52,6 +54,17 @@ int     heredoc(char *argv);
 
 //get_next_line;
 char	*get_next_line(int fd);
+
+//free_error
+void    ft_error(char *str, int i);
+void    free_all(t_pipe *val);
+
+//pipex_utils
+char    **ft_path(char **env);
+char    *check_acss(char **path, char *cmd);
+void    child_p(t_pipe *val, int i);
+void    parent_p(t_pipe *val);
+void    pipex(t_pipe *val);
 
 
 #endif // 
