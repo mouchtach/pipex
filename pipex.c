@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **env)
     val.argc = argc;
     val.argv = argv;
     if(!env || !*env)
-        ft_error(NULL, 3);
+        ft_error(NULL, NULL, 3);
     if(argc < 5)
     {
         ft_putstr_fd("Error in argument\n", 2);

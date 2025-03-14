@@ -58,10 +58,7 @@ char *check_acss(char **path, char *cmd)
 void  first_cmd(t_pipe *val)
 {
     if(val->in == -1)
-    {
-        free_all(val);
-        ft_error(val->argv[val->idex - 1], 1);
-    }
+        ft_error(val, val->argv[val->idex - 1], 1);
     else
         dup2(val->in, 0);
 }
@@ -69,19 +66,17 @@ void  first_cmd(t_pipe *val)
 void    last_cmd(t_pipe *val)
 {
     if(val->out == -1)
-    {
-        free_all(val);
-        ft_error(val->argv[val->argc - 1], 1);
-    }
+        ft_error(val, val->argv[val->argc - 1], 1);
     else
         dup2(val->out, 1);
 }
 
 void    child_p(t_pipe *val, int i)
 {
+    val->cmd = ft_split(val->argv[val->idex], ' ');
     val->path = ft_path(val->env);
     val->exec = check_acss(val->path, val->cmd[0]);
-    free(val->path);
+    ft_free_path(val);
     if(val->idex == i)
         first_cmd(val);
     else
@@ -92,10 +87,12 @@ void    child_p(t_pipe *val, int i)
         dup2(val->fd[1], 1);
     close(val->fd[0]);
     close(val->fd[1]);
+    if(val->exec == NULL)
+        ft_error(val, val->cmd[0], 0);
     if(execve(val->exec, val->cmd, NULL) == -1)
-    {
+    {            
         free_all(val);
-        ft_error(val->cmd[0], 0);
+        free(val->exec);
     }
 }
 
@@ -119,17 +116,13 @@ void    pipex(t_pipe *val)
     i = val->idex;
     while (val->idex <= val->argc - 2)
     {
-        val->cmd = ft_split(val->argv[val->idex], ' ');
         if(val->idex != val->argc - 2)
             pipe(val->fd);
         f = fork();
         if (f == 0)
             child_p(val, i);
         if (f > 0)
-        {
             parent_p(val);
-        }
-        free(val->cmd);
         val->idex++;
     }
     while(wait(NULL) > 0);

@@ -13,6 +13,7 @@
 #ifndef PIPEX_H
 #define PIPEX_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -57,7 +58,9 @@ int     heredoc(char *argv);
 char	*get_next_line(int fd);
 
 //free_error
-void    ft_error(char *str, int i);
+void    ft_error(t_pipe *val, char *str, int i);
+void    ft_free_path(t_pipe *val);
+void    ft_free_command(t_pipe *val);
 void    free_all(t_pipe *val);
 
 //pipex_utils

@@ -29,7 +29,7 @@ void ft_free_command(t_pipe *val)
     }
 }
 
-void ft_free_path_exec(t_pipe *val)
+void ft_free_path(t_pipe *val)
 {
     int i;
 
@@ -43,11 +43,9 @@ void ft_free_path_exec(t_pipe *val)
         }
         val->path = NULL;
     }
-    if(val->exec)
-        free(val->exec);
 }
 
-void ft_error(char *str, int i)
+void ft_error(t_pipe *val, char *str, int i)
 {
     if(i == 0)
     {
@@ -62,11 +60,14 @@ void ft_error(char *str, int i)
     else
         ft_putstr_fd("envirement variable doesn\'t exist ", 2);
     write(2, "\n", 1);
+    free_all(val);
+    if (val->exec)
+        free(val->exec);
     exit(1);
 }
 
 void    free_all(t_pipe *val)
 {
     ft_free_command(val);
-    ft_free_path_exec(val);
+    ft_free_path(val);
 }
