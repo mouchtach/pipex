@@ -8,7 +8,7 @@ all: $(OBJECTS)
 	$(CC)  $(OBJECTS) -o pipex
 
 %.o: %.c pipex.h
-	$(CC)  -c $< -o $@
+	$(CC)  $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJECTS) $(BOBJECTS)
