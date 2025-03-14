@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/12 19:53:18 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:37:11 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,45 @@ char *check_acss(char **path, char *cmd)
 {
     int i = 0;
     char *join;
+    char *tmp;
 
     while(path[i])
     {
         join = ft_strjoin("/", cmd);
-        join = ft_strjoin(path[i], join);
+        tmp = ft_strdup(join);
+        free(join);
+        join = ft_strjoin(path[i], tmp);
+        free(tmp);
         if (access(join, X_OK) == 0)
             return (join);
-        free(join);
         i++;
     }
+    free(join);
     return (NULL);
+}
+
+void  first_cmd(t_pipe *val)
+{
+    if(val->in == -1)
+    {
+        ft_error(val->argv[val->idex - 1], 1);
+        free_all(val);
+        exit(1);
+    }
+    else
+        dup2(val->in, 0);
+}
+
+void    last_cmd(t_pipe *val)
+{
+    if(val->out == -1)
+    {
+        ft_error(val->argv[val->argc - 1], 1);
+        free_all(val);
+        exit(1);
+    }
+    else
+        dup2(val->out, 1);
 }
 
 void    child_p(t_pipe *val, int i)
@@ -56,30 +84,21 @@ void    child_p(t_pipe *val, int i)
     val->path = ft_path(val->env);
     val->exec = check_acss(val->path, val->cmd[0]);
     if(val->idex == i)
-    {
-        if(val->in == -1)
-            ft_error(val->argv[val->idex - 1], 1);
-        else
-            dup2(val->in, 0);
-    }
+        first_cmd(val);
     else
-        dup2(val->fd[0], 0);
+        dup2(val->tmp_in, 0);
     if (val->idex == val->argc - 2)
-    {
-        if(val->out == -1)
-            ft_error(val->argv[val->argc - 1], 1);
-        else
-            dup2(val->in, 0);
-    }
+        last_cmd(val);
     else
         dup2(val->fd[1], 1);
     close(val->fd[0]);
     close(val->fd[1]);
     if(execve(val->exec, val->cmd, NULL) == -1)
     {
-        ft_error(val->cmd[0], 0);
         free_all(val);
+        ft_error(val->cmd[0], 0);
     }
+    while(1);
 }
 
 void    parent_p(t_pipe *val)
@@ -103,8 +122,9 @@ void    pipex(t_pipe *val)
     i = val->idex;
     while (val->idex <= val->argc - 2)
     {
-        val->cmd = ft_split(val->argv[val->idex], ' ');    
-        pipe(val->fd);
+        val->cmd = ft_split(val->argv[val->idex], ' ');
+        if(val->idex != val->argc - 2)
+            pipe(val->fd);
         f = fork();
         if (f == 0)
             child_p(val, i);
@@ -118,4 +138,5 @@ void    pipex(t_pipe *val)
     close (val->fd[0]);
     close (val->in);
     close (val->out);
+    
 }
