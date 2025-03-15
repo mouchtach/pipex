@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:22:10 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 19:11:49 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:29:18 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ char		*check_acss(char **path, char *cmd);
 void		child_p(t_pipe *val, int i);
 void		parent_p(t_pipe *val);
 void		pipex(t_pipe *val);
+void		last_cmd(t_pipe *val);
+void		first_cmd(t_pipe *val);
 
 #endif 
