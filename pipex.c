@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 19:16:47 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:58:30 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("Error in argument\n", 2);
 		exit(1);
 	}
-	if (ft_strcmp(argv[1], "heredoc") == 0)
+	if (ft_strcmp(argv[1], "here_doc") == 0)
 	{
 		val.in = heredoc(argv[2]);
 		val.idex = 3;
