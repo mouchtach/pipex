@@ -12,26 +12,26 @@
 
 #include "pipex.h"
 
-int heredoc(char *dlm)
+int	heredoc(char *dlm)
 {
-    char *line;
-    int herdoc;
+	char	*line;
+	int		herdoc;
 
-    herdoc = open("heredoc", O_CREAT | O_RDWR | O_TRUNC , 0777);
-    dlm = ft_strjoin(dlm, "\n");
-    while (1)
-    {
-        write(1, "heredoc>", 8);
-        line = get_next_line(STDIN_FILENO);
-        if (ft_strcmp(line , dlm) == 0)
-            break;
-        ft_putstr_fd(line, herdoc);
-        free(line);
-    }
-    free(dlm);
-    if(line)
-        free(line);
-    close(herdoc);
-    herdoc = open("heredoc", O_RDONLY, 0777);
-    return (herdoc);
+	herdoc = open("heredoc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	dlm = ft_strjoin(dlm, "\n");
+	while (1)
+	{
+		write(1, "heredoc>", 8);
+		line = get_next_line(STDIN_FILENO);
+		if (ft_strcmp(line, dlm) == 0)
+			break ;
+		ft_putstr_fd(line, herdoc);
+		free(line);
+	}
+	free(dlm);
+	if (line)
+		free(line);
+	close(herdoc);
+	herdoc = open("heredoc", O_RDONLY, 0777);
+	return (herdoc);
 }
