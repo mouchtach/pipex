@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:22:10 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 22:01:35 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:29:18 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PIPEX_H
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <sys/wait.h>
 # include <unistd.h>
 

@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/16 19:05:26 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:54:51 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	child_p(t_pipe *val, int i)
 	if (execve(val->exec, val->cmd, NULL) == -1)
 	{
 		free_all(val);
-		free(val->exec);
+		if (val->exec)
+			free(val->exec);
 	}
 }
 

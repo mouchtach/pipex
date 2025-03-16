@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:21:30 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/16 19:02:39 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:43:13 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	**pcpy(const char *s, char **p, char c, size_t x)
 
 	i = 0;
 	j = 0;
-	while (j < x)
+	while (j < x && s[i])
 	{
 		while (s[i] == c)
 			i++;
