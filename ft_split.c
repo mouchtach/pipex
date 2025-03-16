@@ -6,30 +6,30 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:21:30 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 22:36:55 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:02:39 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
 static int	check_sq(const char *arg, int i)
 {
 	while (arg[i])
 	{
-		if(arg[i] == '\'')
+		if (arg[i] == '\'')
 		{
 			i++;
-			while(arg[i] != '\'' && arg[i])
+			while (arg[i] != '\'' && arg[i])
 				i++;
-			if(arg[i] == '\'')
-				return(1);
-			break;
+			if (arg[i] == '\'')
+				return (1);
+			break ;
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
+
 static char	**freep(char **p, size_t size)
 {
 	size_t	i;
@@ -53,10 +53,10 @@ static size_t	countwords(char const *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		if(s[i] == '\'' && check_sq(s, i))
+		if (s[i] == '\'' && check_sq(s, i))
 		{
 			i++;
-			while(s[i] != '\'')
+			while (s[i] != '\'')
 				i++;
 			count++;
 			i++;
@@ -80,15 +80,15 @@ static char	**pcpy(const char *s, char **p, char c, size_t x)
 	{
 		while (s[i] == c)
 			i++;
-		if(s[i] == '\'' && check_sq(s, i))
-			*single_quote
+		if (s[i] == '\'' && check_sq(s, i))
+			p[j++] = single_quote(s, &i);
 		else
 		{
 			start = i;
 			while (s[i] != c && s[i])
 				i++;
+			p[j++] = ft_substr(s, (unsigned int)start, i - start);
 		}
-		p[j++] = ft_substr(s, (unsigned int)start, i - start);
 		if (!p[j - 1])
 			return (freep(p, j));
 	}

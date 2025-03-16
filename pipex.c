@@ -6,30 +6,34 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 22:26:27 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:05:26 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 int	check_sq(char *arg, int i)
 {
 	while (arg[i])
 	{
-		if(arg[i] == '\'')
+		if (arg[i] == '\'')
 		{
-			while(arg[i] != '\'' && arg[i])
+			i++;
+			while (arg[i] != '\'' && arg[i])
 				i++;
-			if(arg[i] == '\'')
-				return(1);
-			break;
+			if (arg[i] == '\'')
+				return (1);
+			else
+				return (0);
 		}
 		i++;
 	}
-	return(0);
+	return (1);
 }
+
 void	child_p(t_pipe *val, int i)
 {
-	if(check_sq(val->argv[val->idex], 0) == 0)
+	if (check_sq(val->argv[val->idex], 0) == 0)
 		ft_error(NULL, NULL, 2);
 	val->cmd = ft_split(val->argv[val->idex], ' ');
 	val->path = ft_path(val->env);
@@ -83,7 +87,8 @@ void	pipex(t_pipe *val)
 			parent_p(val);
 		val->idex++;
 	}
-	while (wait(NULL) > 0);
+	while (wait(NULL) > 0)
+		;
 	close(val->fd[0]);
 	close(val->in);
 	close(val->out);
@@ -91,35 +96,26 @@ void	pipex(t_pipe *val)
 
 int	main(int argc, char **argv, char **env)
 {
+	t_pipe	val;
 
-	char **tst;
-
-	tst = ft_split(argv[1], ' ');
-	while (*tst)
+	val.idex = 2;
+	val.argc = argc;
+	val.argv = argv;
+	if (!env || !*env)
+		ft_error(NULL, NULL, 3);
+	if (argc < 5)
 	{
-		printf("%s\n", *tst);
-		tst++;	
+		ft_putstr_fd("Error in argument\n", 2);
+		exit(1);
 	}
-	// t_pipe	val;
-
-	// val.idex = 2;
-	// val.argc = argc;
-	// val.argv = argv;
-	// if (!env || !*env)
-	// 	ft_error(NULL, NULL, 3);
-	// if (argc < 5)
-	// {
-	// 	ft_putstr_fd("Error in argument\n", 2);
-	// 	exit(1);
-	// }
-	// if (ft_strcmp(argv[1], "here_doc") == 0)
-	// {
-	// 	val.in = heredoc(argv[2]);
-	// 	val.idex = 3;
-	// }
-	// else
-	// 	val.in = open(argv[1], O_RDWR, 0777);
-	// val.out = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
-	// val.env = env;
-	// pipex(&val);
+	if (ft_strcmp(argv[1], "here_doc") == 0)
+	{
+		val.in = heredoc(argv[2]);
+		val.idex = 3;
+	}
+	else
+		val.in = open(argv[1], O_RDWR, 0777);
+	val.out = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+	val.env = env;
+	pipex(&val);
 }
