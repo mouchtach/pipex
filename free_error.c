@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/13 23:40:59 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:22:10 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_error(t_pipe *val, char *str, int i)
 		ft_putstr_fd("no such file or directory: ", 2);
 		ft_putstr_fd(str, 2);
 	}
+	else if (i == 2)
+		ft_putstr_fd("single quote \" \' \"", 2);
 	else
 		ft_putstr_fd("envirement variable doesn\'t exist ", 2);
 	write(2, "\n", 1);

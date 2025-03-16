@@ -1,7 +1,7 @@
-SOURCES = ft_split.c libft.c libft2.c pipex.c heredoc.c get_next_line.c free_error.c pipex_utils.c
+SOURCES = ft_split.c libft.c libft2.c pipex.c heredoc.c get_next_line.c free_error.c pipex_utils.c ft_split_utils.c
 OBJECTS = $(SOURCES:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 all: pipex
 

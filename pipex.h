@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:22:10 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/15 19:29:18 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/15 22:01:35 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_strcmp(const char *s1, const char *s2);
 
+// split
+char		**ft_split(char const *s, char c);
+char		*single_quote(const char *str, size_t *i);
+
 // libft
 size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s);
-char		**ft_split(char const *s, char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 
