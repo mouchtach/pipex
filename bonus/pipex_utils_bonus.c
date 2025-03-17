@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:37:39 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:46:45 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 char	**ft_path(char **env)
 {
@@ -60,12 +60,9 @@ char	*check_acss(char **path, char *cmd)
 void	first_cmd(t_pipe *val)
 {
 	if (val->in == -1)
-		ft_error(val, val->argv[val->index - 1], 1);
+		ft_error(val, val->argv[val->idex - 1], 1);
 	else
-	{
 		dup2(val->in, 0);
-		dup2(val->fd[1], 1);
-	}
 }
 
 void	last_cmd(t_pipe *val)
@@ -73,8 +70,5 @@ void	last_cmd(t_pipe *val)
 	if (val->out == -1)
 		ft_error(val, val->argv[val->argc - 1], 1);
 	else
-	{
 		dup2(val->out, 1);
-		dup2(val->fd[0], 0);
-	}
 }
