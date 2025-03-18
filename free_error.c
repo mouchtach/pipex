@@ -60,7 +60,7 @@ void	ft_error(t_pipe *val, char *str, int i)
 		ft_putstr_fd("awk: syntax error", 2);
 	else if (i == 3)
 		ft_putstr_fd("envirement variable doesn\'t exist ", 2);
-	else 
+	else
 		ft_putstr_fd("Error in fork\n", 2);
 	write(2, "\n", 1);
 	free_all(val);

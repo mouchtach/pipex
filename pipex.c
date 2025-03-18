@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:43:51 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:58:32 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/18 01:42:45 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ void    child_process(t_pipe *val)
 	val->cmd = ft_split(val->argv[val->index], ' ');
 	val->path = ft_path(val->env);
 	val->exec = check_acss(val->path, val->cmd[0]);
+    // printf("cmd = %s\n", val->cmd[0]);  
+    // printf("path = %s\n", val->path[0]);  
+    // printf("exec = %s\n", val->exec);  
+    // exit(0);
     if(val->index == 2)
-        first_cmd(val);
+        ft_first(val);
     if(val->index == 3)
-        last_cmd(val);
+        ft_last(val);
     close(val->fd[0]);
 	close(val->fd[1]);
     if (val->exec == NULL)
 		ft_error(val, val->cmd[0], 0);
+    ft_free_path(val);
 	if (execve(val->exec, val->cmd, NULL) == -1)
 	{
 		free_all(val);
@@ -66,11 +71,12 @@ void    pipex(t_pipe *val)
         if(child == 0)    
             child_process(val);
         val->index++;
+        
     }
-    while (wait(NULL) > 0)
-        ;
-    close(val->fd[1]);
+    wait(NULL);
+    wait(NULL);
     close(val->fd[0]);
+    close(val->fd[1]);
     close(val->in);
     close(val->out);
 }
@@ -83,9 +89,10 @@ int	main(int argc, char **argv, char **env)
 		ft_error(NULL, NULL, 3);
     if(argc == 5)
     {
-        val.in = open(argv[1], O_RDWR, 0777);
-        val.out = open(argv[argc - 1], O_CREAT | O_APPEND | O_RDWR, 0777);
+        val.in = open(argv[1], O_RDONLY, 0777);
+        val.out = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
         val.argv = argv;
+        val.argc = argc;
         val.env = env;
         val.index = 2;
         pipex(&val);  
