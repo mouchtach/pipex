@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 16:47:52 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/18 00:50:41 by ymouchta         ###   ########.fr       */
+/*   Created: 2025/03/17 17:47:11 by ymouchta          #+#    #+#             */
+/*   Updated: 2025/03/18 20:20:13 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,51 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+
 typedef struct t_pipe
 {
-	int		fd[2];
-	int		index;
+	int		argc;
 	int		in;
 	int		out;
-	int		argc;
+	int		fd[2];
+	char	**cmd;
 	char	**argv;
 	char	**env;
-	char	**cmd;
 	char	**path;
 	char	*exec;
-
+	int		idex;
 }			t_pipe;
+
+// libft2
+char		*ft_strchr(const char *s, int c);
+void		ft_putstr_fd(char *s, int fd);
+int			ft_strcmp(const char *s1, const char *s2);
 
 // split
 char		**ft_split(char const *s, char c);
 char		*single_quote(const char *str, size_t *i);
 
 // libft
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strdup(const char *s);
 size_t		ft_strlen(const char *s);
+char		*ft_strdup(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 
-// libft2
-int			ft_strcmp(const char *s1, const char *s2);
-void		ft_putstr_fd(char *s, int fd);
-char		*ft_strchr(const char *s, int c);
-
-// error
-void		ft_free_command(t_pipe *val);
-void		ft_free_path(t_pipe *val);
+// free_error
 void		ft_error(t_pipe *val, char *str, int i);
+void		ft_free_path(t_pipe *val);
+void		ft_free_command(t_pipe *val);
 void		free_all(t_pipe *val);
 
-// util pipex
-void		ft_last(t_pipe *val);
-void		ft_first(t_pipe *val);
-char		*check_acss(char **path, char *cmd);
+// pipex_utils
 char		**ft_path(char **env);
+char		*check_acss(char **path, char *cmd);
+void		child_p(t_pipe *val);
+void		pipex(t_pipe *val);
+void		last_cmd(t_pipe *val);
+void		first_cmd(t_pipe *val);
 
 #endif

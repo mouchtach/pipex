@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:28:28 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:46:45 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:13:34 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	heredoc(char *dlm)
 	dlm = ft_strjoin(dlm, "\n");
 	while (1)
 	{
-		write(1, "heredoc>", 8);
+		write(1, "here_doc>", 9);
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strcmp(line, dlm) == 0)
 			break ;

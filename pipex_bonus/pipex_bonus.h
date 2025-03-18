@@ -14,8 +14,8 @@
 # define PIPEX_BONUS_H
 
 # include <fcntl.h>
-# include <stdlib.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
 
@@ -75,4 +75,4 @@ void		pipex(t_pipe *val);
 void		last_cmd(t_pipe *val);
 void		first_cmd(t_pipe *val);
 
-#endif 
+#endif

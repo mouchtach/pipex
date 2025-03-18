@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:49:58 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:17:15 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		val.in = open(argv[1], O_RDWR, 0777);
-	val.out = open(argv[argc - 1], O_CREAT | O_APPEND | O_RDWR, 0777);
+	val.out = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
 	val.env = env;
 	pipex(&val);
+	unlink("heredoc");
 }

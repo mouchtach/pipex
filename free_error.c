@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:57:32 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:39:59 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ void	ft_error(t_pipe *val, char *str, int i)
 	}
 	else if (i == 2)
 		ft_putstr_fd("awk: syntax error", 2);
-	else if (i == 3)
-		ft_putstr_fd("envirement variable doesn\'t exist ", 2);
 	else
-		ft_putstr_fd("Error in fork\n", 2);
+		ft_putstr_fd("envirement variable doesn\'t exist ", 2);
 	write(2, "\n", 1);
 	free_all(val);
 	if (val->exec)
