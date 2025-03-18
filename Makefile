@@ -14,7 +14,7 @@ $(NAME): $(OBJECTS)
 bonus:
 	@make -C pipex_bonus
 	
-%.o: %.c pipex_bonus.h
+%.o: %.c pipex.h
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

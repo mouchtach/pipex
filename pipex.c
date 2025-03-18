@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/18 20:06:26 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:27:59 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,14 @@ void	pipex(t_pipe *val)
 		if (f > 0)
 		{
 			if (val->idex == 3)
-			{
-				close(val->fd[0]);
 				close(val->fd[1]);
-			}
 		}
 		val->idex++;
 	}
 	while (wait(NULL) > 0)
 		;
 	close(val->in);
+	close(val->fd[0]);
 	close(val->out);
 }
 
