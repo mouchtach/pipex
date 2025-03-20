@@ -6,29 +6,29 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:21:30 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:46:45 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:00:05 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static int	check_sq(const char *arg, int i)
-{
-	while (arg[i])
-	{
-		if (arg[i] == '\'')
-		{
-			i++;
-			while (arg[i] != '\'' && arg[i])
-				i++;
-			if (arg[i] == '\'')
-				return (1);
-			break ;
-		}
-		i++;
-	}
-	return (0);
-}
+// static int	check_sq(const char *arg, int i)
+// {
+// 	while (arg[i])
+// 	{
+// 		if (arg[i] == '\'')
+// 		{
+// 			i++;
+// 			while (arg[i] != '\'' && arg[i])
+// 				i++;
+// 			if (arg[i] == '\'')
+// 				return (1);
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 static char	**freep(char **p, size_t size)
 {
@@ -44,7 +44,7 @@ static char	**freep(char **p, size_t size)
 	return (NULL);
 }
 
-static size_t	countwords(char const *s, char c)
+static size_t	countwords(char *s, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -68,7 +68,7 @@ static size_t	countwords(char const *s, char c)
 	return (count);
 }
 
-static char	**pcpy(const char *s, char **p, char c, size_t x)
+static char	**pcpy(char *s, char **p, char c, size_t x)
 {
 	size_t	i;
 	size_t	j;
@@ -96,7 +96,7 @@ static char	**pcpy(const char *s, char **p, char c, size_t x)
 	return (p);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**p;
 	size_t	count;

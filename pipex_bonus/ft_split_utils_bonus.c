@@ -6,13 +6,13 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:47:21 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/17 17:46:45 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:00:36 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-char	*single_quote(const char *str, size_t *i)
+char	*single_quote(char *str, size_t *i)
 {
 	int	start;
 	int	end;

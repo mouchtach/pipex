@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/20 02:00:36 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:01:41 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,58 +57,35 @@ char	*check_acss(char **path, char *cmd)
 	return (NULL);
 }
 
-void	heredoc(t_pipe *val, char *dlm)
+void	child_p(t_pipe *val)
 {
-	char	*line;
-	int fd;
-	
-	fd = open("/tmp/.here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
-	if (fd == -1)
-		ft_error(NULL, "herdoc error", 4);
-	dlm = ft_strjoin(dlm, "\n");
-	while (1)
+	files_descriptor(val);
+	if (check_sq(val->argv[val->index], 0) == 0)
+		ft_error(val, NULL, 2);
+	val->cmd = ft_split(val->argv[val->index], ' ');
+	if (!val->cmd)
+		ft_error(val, "split faild", 4);
+	val->path = ft_path(val->env);
+	if (!val->path)
+		ft_error(val, "path not found ", 4);
+	val->exec = check_acss(val->path, val->cmd[0]);
+	if (!val->exec)
+		ft_error(val, val->cmd[0], 0);
+	if (execve(val->exec, val->cmd, NULL) == -1)
 	{
-		write(1, "here_doc>", 9);
-		line = get_next_line(STDIN_FILENO);
-		if (ft_strcmp(line, dlm) == 0)
-			break ;
-		ft_putstr_fd(line,fd);
-		free(line);
+		free_all(val);
+		if (val->exec)
+			free(val->exec);
 	}
-	free(dlm);
-	if (line)
-		free(line);
-	dup2(fd, 0);
-	dup2(val->fd[1], 1);
-	close(fd);
-	close(val->fd[1]);
-	close(val->fd[0]);
 }
 
-void	first_cmd(t_pipe *val)
+void	parent_p(t_pipe *val)
 {
-	val->in = open(val->argv[1], O_RDWR, 0777);
-	if(val->in == -1)
-		ft_error(val, val->argv[val->index - 1], 1);
-	dup2(val->in, 0);
-	dup2(val->fd[1], 1);
-	close(val->fd[0]);
 	close(val->fd[1]);
-	close(val->in);
-}
-
-void	last_cmd(t_pipe *val)
-{
-	if (val->heredoc == 1)
-		val->out = open(val->argv[val->argc - 1], O_CREAT | O_APPEND | O_RDWR, 0777);
-	else 
-		val->out = open(val->argv[val->argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
-	if(val->out == -1)
-		ft_error(val, val->argv[val->index - 1], 1);
-	dup2(val->out, 1);
-	dup2(val->tmp_in, 0);
-	close(val->fd[0]);
-	close(val->fd[1]);
-	close(val->out);
-	close(val->tmp_in);
+	if (val->tmp_in != 0)
+		close(val->tmp_in);
+	if (val->index == val->argc - 2)
+		close(val->tmp_in);
+	else
+		val->tmp_in = val->fd[0];
 }
