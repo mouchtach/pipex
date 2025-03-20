@@ -1,5 +1,5 @@
-NAME = ../pipex
-SOURCES = ft_split_bonus.c libft_bonus.c libft2_bonus.c pipex_bonus.c heredoc_bonus.c get_next_line_bonus.c  \
+NAME = pipex
+SOURCES = ft_split_bonus.c libft_bonus.c libft2_bonus.c pipex_bonus.c  get_next_line_bonus.c  \
 		free_error_bonus.c pipex_utils_bonus.c ft_split_utils_bonus.c
 
 OBJECTS = $(SOURCES:.c=.o)
