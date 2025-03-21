@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:05:04 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/20 17:11:46 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:10:36 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	heredoc(char *dlm)
 	char	*line;
 	int		fd;
 
-	fd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
+	fd = open("/tmp/.here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd == -1)
 		ft_error(NULL, "herdoc error", 4);
 	dlm = ft_strjoin(dlm, "\n");
@@ -61,7 +61,7 @@ int	heredoc(char *dlm)
 	if (line)
 		free(line);
 	close(fd);
-	fd = open("/tmp/here_doc", O_RDONLY, 0777);
+	fd = open("/tmp/.here_doc", O_RDONLY, 0777);
 	return (fd);
 }
 

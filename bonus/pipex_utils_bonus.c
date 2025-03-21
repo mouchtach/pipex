@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/20 21:01:41 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:13:24 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,15 @@ char	*check_acss(char **path, char *cmd)
 
 void	child_p(t_pipe *val)
 {
+	val->exec = NULL;
+	val->cmd = NULL;
+	val->path = NULL;
 	files_descriptor(val);
 	if (check_sq(val->argv[val->index], 0) == 0)
-		ft_error(val, NULL, 2);
+		ft_error(NULL, NULL, 2);
 	val->cmd = ft_split(val->argv[val->index], ' ');
 	if (!val->cmd)
-		ft_error(val, "split faild", 4);
+		ft_error(NULL, "split faild", 4);
 	val->path = ft_path(val->env);
 	if (!val->path)
 		ft_error(val, "path not found ", 4);

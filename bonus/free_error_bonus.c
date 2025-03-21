@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/20 21:06:02 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:24:18 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,21 @@ void	ft_free_path(t_pipe *val)
 void	ft_error(t_pipe *val, char *str, int i)
 {
 	if (i == 0)
-	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putstr_fd(str, 2);
-	}
 	else if (i == 1)
-	{
 		ft_putstr_fd("no such file or directory: ", 2);
-		ft_putstr_fd(str, 2);
-	}
 	else if (i == 2)
 		ft_putstr_fd("awk: syntax error", 2);
 	else if (i == 3)
-	{
-		ft_putstr_fd("envirement variable doesn\'t exist \n", 2);
-		exit(1);
-	}
-	else
-		ft_putstr_fd(str, 2);
+		ft_putstr_fd("envirement variable doesn\'t exist", 2);
+	ft_putstr_fd(str, 2);
 	write(2, "\n", 1);
-	free_all(val);
-	if (val->exec)
-		free(val->exec);
+	if (val)
+	{
+		free_all(val);
+		if (val->exec)
+			free(val->exec);
+	}
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/20 21:10:57 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:11:22 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,11 @@ int	main(int argc, char **argv, char **env)
 			val.heredoc = 0;
 			val.index = 2;
 		}
-		val.cmd = NULL;
-		val.path = NULL;
 		val.argc = argc;
 		val.argv = argv;
 		val.env = env;
 		pipex(&val);
 	}
 	else
-		ft_error(NULL, "Error in argument\n", 4);
+		ft_error(NULL, "Error in argument", 4);
 }
