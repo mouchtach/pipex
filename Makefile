@@ -23,7 +23,7 @@ $(NAME): $(OBJECTS)
 $(BNAME): $(BOBJECTS)
 	$(CC) $(CFLAGS) $(BOBJECTS) -o $@
 	
-%.o: %.c pipex.h
+Mandatory/%.o: Mandatory/%.c Mandatory/pipex.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus/%.o: bonus/%.c bonus/pipex_bonus.h
