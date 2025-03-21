@@ -56,7 +56,7 @@ void	ft_error(t_pipe *val, char *str, int i)
 	{
 		free_all(val);
 		if (val->exec)
-		free(val->exec);
+			free(val->exec);
 	}
 	exit(1);
 }
@@ -68,5 +68,4 @@ void	free_all(t_pipe *val)
 	close(val->fd[1]);
 	close(val->fd[0]);
 	close(val->tmp_in);
-	
 }

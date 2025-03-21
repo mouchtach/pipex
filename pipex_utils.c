@@ -82,4 +82,3 @@ void	child_p(t_pipe *val)
 			free(val->exec);
 	}
 }
-

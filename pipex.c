@@ -60,7 +60,7 @@ void	pipex(t_pipe *val)
 	while (val->index <= val->argc - 2)
 	{
 		f = fork();
-		if	(f < 0)
+		if (f < 0)
 			ft_error(NULL, "fork faild", 2);
 		if (f == 0)
 			child_p(val);
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 	t_pipe	val;
 
 	if (!env || !*env)
-		ft_error(NULL,"envirement variable doesn\'t exist", 3);
+		ft_error(NULL, "envirement variable doesn\'t exist", 3);
 	if (argc == 5)
 	{
 		val.index = 2;
