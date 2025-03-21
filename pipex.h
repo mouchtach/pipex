@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:47:11 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/18 20:20:13 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:31:09 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
 
 typedef struct t_pipe
 {
@@ -34,7 +31,7 @@ typedef struct t_pipe
 	char	**env;
 	char	**path;
 	char	*exec;
-	int		idex;
+	int		index;
 }			t_pipe;
 
 // libft2

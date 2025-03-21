@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/18 19:45:31 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:31:09 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*check_acss(char **path, char *cmd)
 void	first_cmd(t_pipe *val)
 {
 	if (val->in == -1)
-		ft_error(val, val->argv[val->idex - 1], 1);
+		ft_error(val, val->argv[val->index - 1], 1);
 	else
 		dup2(val->in, 0);
 	dup2(val->fd[1], 1);

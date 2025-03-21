@@ -18,21 +18,21 @@ all: $(NAME)
 bonus: $(BNAME) 
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 $(BNAME): $(BOBJECTS)
-	@$(CC) $(CFLAGS) $(BOBJECTS) -o $@
+	$(CC) $(CFLAGS) $(BOBJECTS) -o $@
 	
 %.o: %.c pipex.h
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus/%.o: bonus/%.c bonus/pipex_bonus.h
-	@$(CC) $(CFLAGS) -c $< -o $@	
+	$(CC) $(CFLAGS) -c $< -o $@	
 
 clean:
-	@rm  $(OBJECTS) $(BOBJECTS)
+	rm -rf $(OBJECTS) $(BOBJECTS)
 
 fclean: clean
-	@rm -rf pipex
+	rm -rf $(BNAME) $(NAME) 
 
 re: fclean all
