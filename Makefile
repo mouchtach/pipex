@@ -1,7 +1,6 @@
 NAME = pipex
 BNAME = pipex_bonus
-SOURCES = ft_split.c libft.c libft2.c pipex.c  \
-		free_error.c pipex_utils.c ft_split_utils.c
+SOURCES =  dup_files.c ft_split.c libft.c libft2.c pipex.c free_error.c pipex_utils.c ft_split_utils.c
 
 BSOURCES = bonus/dup_files_bonus.c bonus/free_error_bonus.c bonus/ft_split_bonus.c \
 		bonus/ft_split_utils_bonus.c bonus/get_next_line_bonus.c bonus/libft_bonus.c \
@@ -13,9 +12,9 @@ BOBJECTS = $(BSOURCES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) 
+all: $(NAME) $(OBJECTS)
 
-bonus: $(BNAME) 
+bonus: $(BNAME) $(BOBJECTS)
 
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
@@ -36,3 +35,5 @@ fclean: clean
 	rm -rf $(BNAME) $(NAME) 
 
 re: fclean all
+
+

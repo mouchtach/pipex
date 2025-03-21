@@ -61,15 +61,15 @@ void	pipex(t_pipe *val)
 		if (val->index != val->argc - 2)
 		{
 			if (pipe(val->fd) == -1)
-				ft_error(val, "pipe faild", 4);
+				ft_error(NULL, "pipe faild", 2);
 		}
 		f = fork();
+		if	(f < 0)
+			ft_error(NULL, "fork faild", 2);
 		if (f == 0)
 			child_p(val);
 		if (f > 0)
-		{
 			parent_p(val);
-		}
 		val->index++;
 	}
 	wait_and_error(val, &check);
@@ -82,7 +82,7 @@ int	main(int argc, char **argv, char **env)
 	t_pipe	val;
 
 	if (!env || !*env)
-		ft_error(NULL, NULL, 3);
+		ft_error(NULL,"envirement variable doesn\'t exist", 2);
 	if (argc > 4)
 	{
 		if (ft_strcmp(argv[1], "here_doc") == 0)
@@ -101,5 +101,5 @@ int	main(int argc, char **argv, char **env)
 		pipex(&val);
 	}
 	else
-		ft_error(NULL, "Error in argument", 4);
+		ft_error(NULL, "Error in argument", 2);
 }

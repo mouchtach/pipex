@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:31:09 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:11:22 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,44 @@ int	check_sq(char *arg, int i)
 	return (1);
 }
 
-void	child_p(t_pipe *val)
+void	wait_and_error(t_pipe *val, int *check)
 {
-	if (check_sq(val->argv[val->index], 0) == 0)
-		ft_error(NULL, NULL, 2);
-	val->cmd = ft_split(val->argv[val->index], ' ');
-	val->path = ft_path(val->env);
-	val->exec = check_acss(val->path, val->cmd[0]);
-	ft_free_path(val);
-	if (val->index == 2)
-		first_cmd(val);
-	if (val->index == 3)
-		last_cmd(val);
+	int	status;
+
+	while (wait(&status) > 0)
+	{
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) > 0)
+				*check = 1;
+		}
+	}
 	close(val->fd[0]);
 	close(val->fd[1]);
-	if (val->exec == NULL)
-		ft_error(val, val->cmd[0], 0);
-	if (execve(val->exec, val->cmd, NULL) == -1)
-	{
-		free_all(val);
-		if (val->exec)
-			free(val->exec);
-	}
+	close(val->in);
+	close(val->out);
 }
 
 void	pipex(t_pipe *val)
 {
 	int	f;
+	int	check;
 
-	pipe(val->fd);
+	check = 0;
+	if (pipe(val->fd) == -1)
+		ft_error(NULL, "pipe faild", 2);
 	while (val->index <= val->argc - 2)
 	{
 		f = fork();
+		if	(f < 0)
+			ft_error(NULL, "fork faild", 2);
 		if (f == 0)
 			child_p(val);
-		if (f > 0)
-		{
-			if (val->index == 3)
-				close(val->fd[1]);
-		}
 		val->index++;
 	}
-	while (wait(NULL) > 0)
-		;
-	close(val->in);
-	close(val->fd[0]);
-	close(val->out);
+	wait_and_error(val, &check);
+	if (check == 1)
+		exit(1);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -84,20 +76,15 @@ int	main(int argc, char **argv, char **env)
 	t_pipe	val;
 
 	if (!env || !*env)
-		ft_error(NULL, NULL, 3);
+		ft_error(NULL,"envirement variable doesn\'t exist", 3);
 	if (argc == 5)
 	{
 		val.index = 2;
 		val.argc = argc;
 		val.argv = argv;
-		val.in = open(argv[1], O_RDWR, 0777);
-		val.out = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
 		val.env = env;
 		pipex(&val);
 	}
 	else
-	{
-		ft_putstr_fd("Error in argument\n", 2);
-		exit(1);
-	}
+		ft_error(NULL, "Error in argument", 4);
 }

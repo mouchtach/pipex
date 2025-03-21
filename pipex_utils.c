@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:31:09 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:13:24 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,29 @@ char	*check_acss(char **path, char *cmd)
 	return (NULL);
 }
 
-void	first_cmd(t_pipe *val)
+void	child_p(t_pipe *val)
 {
-	if (val->in == -1)
-		ft_error(val, val->argv[val->index - 1], 1);
-	else
-		dup2(val->in, 0);
-	dup2(val->fd[1], 1);
+	val->exec = NULL;
+	val->cmd = NULL;
+	val->path = NULL;
+	files_descriptor(val);
+	if (check_sq(val->argv[val->index], 0) == 0)
+		ft_error(NULL, "awk: syntax error", 2);
+	val->cmd = ft_split(val->argv[val->index], ' ');
+	if (!val->cmd)
+		ft_error(NULL, "split faild", 2);
+	val->path = ft_path(val->env);
+	if (!val->path)
+		ft_error(val, "path not found ", 2);
+	val->exec = check_acss(val->path, val->cmd[0]);
+	if (!val->exec)
+		ft_error(val, val->cmd[0], 0);
+	ft_free_path(val);
+	if (execve(val->exec, val->cmd, NULL) == -1)
+	{
+		free_all(val);
+		if (val->exec)
+			free(val->exec);
+	}
 }
 
-void	last_cmd(t_pipe *val)
-{
-	if (val->out == -1)
-		ft_error(val, val->argv[val->argc - 1], 1);
-	else
-		dup2(val->out, 1);
-	dup2(val->fd[0], 0);
-}

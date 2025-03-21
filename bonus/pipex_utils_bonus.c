@@ -64,16 +64,17 @@ void	child_p(t_pipe *val)
 	val->path = NULL;
 	files_descriptor(val);
 	if (check_sq(val->argv[val->index], 0) == 0)
-		ft_error(NULL, NULL, 2);
+		ft_error(NULL, "awk: syntax error", 2);
 	val->cmd = ft_split(val->argv[val->index], ' ');
 	if (!val->cmd)
-		ft_error(NULL, "split faild", 4);
+		ft_error(NULL, "split faild", 2);
 	val->path = ft_path(val->env);
 	if (!val->path)
-		ft_error(val, "path not found ", 4);
+		ft_error(val, "path not found ", 2);
 	val->exec = check_acss(val->path, val->cmd[0]);
 	if (!val->exec)
 		ft_error(val, val->cmd[0], 0);
+	ft_free_path(val);
 	if (execve(val->exec, val->cmd, NULL) == -1)
 	{
 		free_all(val);

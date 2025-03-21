@@ -50,29 +50,23 @@ void	ft_error(t_pipe *val, char *str, int i)
 		ft_putstr_fd("command not found: ", 2);
 	else if (i == 1)
 		ft_putstr_fd("no such file or directory: ", 2);
-	else if (i == 2)
-		ft_putstr_fd("awk: syntax error", 2);
-	else if (i == 3)
-		ft_putstr_fd("envirement variable doesn\'t exist", 2);
 	ft_putstr_fd(str, 2);
 	write(2, "\n", 1);
 	if (val)
 	{
 		free_all(val);
 		if (val->exec)
-			free(val->exec);
+		free(val->exec);
 	}
 	exit(1);
 }
 
 void	free_all(t_pipe *val)
 {
-	if (val)
-	{
-		ft_free_command(val);
-		ft_free_path(val);
-		close(val->fd[1]);
-		close(val->fd[0]);
-		close(val->tmp_in);
-	}
+	ft_free_command(val);
+	ft_free_path(val);
+	close(val->fd[1]);
+	close(val->fd[0]);
+	close(val->tmp_in);
+	
 }

@@ -12,24 +12,6 @@
 
 #include "pipex_bonus.h"
 
-// static int	check_sq(const char *arg, int i)
-// {
-// 	while (arg[i])
-// 	{
-// 		if (arg[i] == '\'')
-// 		{
-// 			i++;
-// 			while (arg[i] != '\'' && arg[i])
-// 				i++;
-// 			if (arg[i] == '\'')
-// 				return (1);
-// 			break ;
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 static char	**freep(char **p, size_t size)
 {
 	size_t	i;
