@@ -36,3 +36,5 @@ fclean: clean
 	rm -rf $(BNAME) $(NAME) 
 
 re: fclean all
+
+PHONY: all clean fclean re bonus
