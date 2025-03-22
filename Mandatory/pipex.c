@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:11:22 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/22 19:50:56 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_sq(char *arg, int i)
 	return (1);
 }
 
-void	wait_and_error(t_pipe *val, int *check)
+void	wait_and_error(int *check)
 {
 	int	status;
 
@@ -43,10 +43,6 @@ void	wait_and_error(t_pipe *val, int *check)
 				*check = 1;
 		}
 	}
-	close(val->fd[0]);
-	close(val->fd[1]);
-	close(val->in);
-	close(val->out);
 }
 
 void	pipex(t_pipe *val)
@@ -59,6 +55,8 @@ void	pipex(t_pipe *val)
 		ft_error(NULL, "pipe faild", 2);
 	while (val->index <= val->argc - 2)
 	{
+		if (val->index == 3)
+			close(val->fd[1]);
 		f = fork();
 		if (f < 0)
 			ft_error(NULL, "fork faild", 2);
@@ -66,7 +64,8 @@ void	pipex(t_pipe *val)
 			child_p(val);
 		val->index++;
 	}
-	wait_and_error(val, &check);
+	wait_and_error(&check);
+	close(val->fd[0]);
 	if (check == 1)
 		exit(1);
 }
@@ -76,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 	t_pipe	val;
 
 	if (!env || !*env)
-		ft_error(NULL, "envirement variable doesn\'t exist", 3);
+		ft_error(NULL, "envirement variable doesn\'t exist", 2);
 	if (argc == 5)
 	{
 		val.index = 2;
@@ -86,5 +85,5 @@ int	main(int argc, char **argv, char **env)
 		pipex(&val);
 	}
 	else
-		ft_error(NULL, "Error in argument", 4);
+		ft_error(NULL, "Error in argument", 2);
 }
