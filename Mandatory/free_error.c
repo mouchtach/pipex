@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/25 00:16:38 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 01:28:44 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_error(t_pipe *val, char *str, int i)
 		if (val->exec)
 			free(val->exec);
 	}
+	if (val->index == 2)
+		exit(0);
 	exit(1);
 }
 
