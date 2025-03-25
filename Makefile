@@ -1,5 +1,6 @@
 NAME = pipex
-BNAME = pipex_bonus
+BNAME = bonus/pb
+
 SOURCES =  Mandatory/dup_files.c Mandatory/ft_split.c Mandatory/libft.c Mandatory/libft2.c \
 		Mandatory/pipex.c Mandatory/free_error.c Mandatory/pipex_utils.c Mandatory/ft_split_utils.c
 
@@ -13,15 +14,20 @@ BOBJECTS = $(BSOURCES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) $(OBJECTS)
-
-bonus: $(BNAME) $(BOBJECTS)
+all: $(NAME)
+ 
+bonus: $(BNAME)
 
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+	rm -rf $(BOBJECTS)
+	rm -rf $(BNAME)
 
-$(BNAME): $(BOBJECTS)
-	$(CC) $(CFLAGS) $(BOBJECTS) -o $@
+$(BNAME) : $(BOBJECTS) 
+	$(CC) $(CFLAGS) $(BOBJECTS) -o $(NAME)
+	rm -rf $(OBJECTS)
+	touch $(BNAME)
+
 	
 Mandatory/%.o: Mandatory/%.c Mandatory/pipex.h
 	$(CC) $(CFLAGS) -c $< -o $@

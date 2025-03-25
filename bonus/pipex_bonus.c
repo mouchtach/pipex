@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:11:22 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:18:39 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,11 @@ void	wait_and_error(t_pipe *val, int *check)
 
 	while (wait(&status) > 0)
 	{
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) > 0)
-				*check = 1;
-		}
+		if (WEXITSTATUS(status) > 0)
+			*check = 1;
 	}
 	close(val->fd[0]);
 	close(val->fd[1]);
-	close(val->in);
-	close(val->out);
 }
 
 void	pipex(t_pipe *val)

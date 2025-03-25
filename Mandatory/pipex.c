@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:06:41 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/22 19:50:56 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:16:16 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void	wait_and_error(int *check)
 
 	while (wait(&status) > 0)
 	{
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) > 0)
-				*check = 1;
-		}
+		if (WEXITSTATUS(status) > 0)
+			*check = 1;
 	}
 }
 

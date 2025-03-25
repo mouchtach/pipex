@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:24:18 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:17:31 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,6 @@ void	free_all(t_pipe *val)
 	close(val->fd[1]);
 	close(val->fd[0]);
 	close(val->tmp_in);
+	close(val->in);
+	close(val->out);
 }

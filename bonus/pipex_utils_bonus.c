@@ -6,11 +6,25 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:20:49 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/21 00:13:24 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:39:32 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	command_exist(t_pipe *val)
+{
+	char	**cmd;
+	int		i;
+
+	i = 0;
+	if (access(val->argv[val->index], X_OK) == 0)
+	{
+		cmd = ft_split(val->argv[val->index], ' ');
+		if (execve(val->argv[val->index], cmd, NULL) == -1)
+			ft_error(val, "execve faild", 2);
+	}
+}
 
 char	**ft_path(char **env)
 {
@@ -63,6 +77,7 @@ void	child_p(t_pipe *val)
 	val->cmd = NULL;
 	val->path = NULL;
 	files_descriptor(val);
+	command_exist(val);
 	if (check_sq(val->argv[val->index], 0) == 0)
 		ft_error(NULL, "awk: syntax error", 2);
 	val->cmd = ft_split(val->argv[val->index], ' ');
@@ -76,11 +91,7 @@ void	child_p(t_pipe *val)
 		ft_error(val, val->cmd[0], 0);
 	ft_free_path(val);
 	if (execve(val->exec, val->cmd, NULL) == -1)
-	{
-		free_all(val);
-		if (val->exec)
-			free(val->exec);
-	}
+		ft_error(val, "execve faild", 2);
 }
 
 void	parent_p(t_pipe *val)
