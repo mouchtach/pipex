@@ -1,5 +1,5 @@
 NAME = pipex
-BNAME = bonus/pb
+BNAME = bonus/.pb
 
 SOURCES =  Mandatory/dup_files.c Mandatory/ft_split.c Mandatory/libft.c Mandatory/libft2.c \
 		Mandatory/pipex.c Mandatory/free_error.c Mandatory/pipex_utils.c Mandatory/ft_split_utils.c

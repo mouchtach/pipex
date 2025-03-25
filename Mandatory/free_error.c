@@ -6,7 +6,7 @@
 /*   By: ymouchta <ymouchta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:23 by ymouchta          #+#    #+#             */
-/*   Updated: 2025/03/25 01:28:44 by ymouchta         ###   ########.fr       */
+/*   Updated: 2025/03/25 01:36:01 by ymouchta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	ft_free_path(t_pipe *val)
 
 void	ft_error(t_pipe *val, char *str, int i)
 {
+	int	check;
+
+	check = 0;
 	if (i == 0)
 		ft_putstr_fd("command not found: ", 2);
 	else if (i == 1)
@@ -54,11 +57,13 @@ void	ft_error(t_pipe *val, char *str, int i)
 	write(2, "\n", 1);
 	if (val)
 	{
+		if (val->index == 2)
+			check = 1;
 		free_all(val);
 		if (val->exec)
 			free(val->exec);
 	}
-	if (val->index == 2)
+	if (check == 1)
 		exit(0);
 	exit(1);
 }
