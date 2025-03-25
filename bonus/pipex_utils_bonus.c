@@ -15,9 +15,7 @@
 void	command_exist(t_pipe *val)
 {
 	char	**cmd;
-	int		i;
 
-	i = 0;
 	if (access(val->argv[val->index], X_OK) == 0)
 	{
 		cmd = ft_split(val->argv[val->index], ' ');

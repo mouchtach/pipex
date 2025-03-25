@@ -15,17 +15,12 @@
 void	command_exist(t_pipe *val)
 {
 	char	**cmd;
-	int		i;
 
-	i = 0;
 	if (access(val->argv[val->index], X_OK) == 0)
 	{
 		cmd = ft_split(val->argv[val->index], ' ');
 		if (execve(val->argv[val->index], cmd, NULL) == -1)
-		{
-			ft_free_command(val);
-			exit(1);
-		}
+			ft_error(val, "execve faild", 2);
 	}
 }
 
